@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -188,8 +189,8 @@ public class GenericRequest {
     private String LMSenderBankName;
     @JsonProperty("LMSwiftCode")
     private String LMSwiftCode;
-    @JsonProperty("LMRemarks")
-    private String LMRemarks;
+    @JsonProperty("LMPurposeCode")
+    private String LMPurposeCode;
     @JsonProperty("LMAlternativePayment")
     private String LMAlternativePayment;
     @JsonProperty("LMSecondaryAction")

@@ -1,10 +1,14 @@
 package com.lmpay.starter.helper;
 
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lmpay.starter.config.AppProperties;
+import com.lmpay.starter.model.PartnerTransaction;
 import okhttp3.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.client.OkHttp3ClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 import javax.net.ssl.SSLContext;
@@ -169,13 +173,48 @@ public class Helper {
     }
 
 
-//    public static String postJson(BankAggregator request) {
-//        String url = appProperties.getAggregatorUrl();
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setContentType(MediaType.APPLICATION_JSON);
-//        String requestBody = new ObjectMapper().writeValueAsString(request);
-//        ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestBody, String.class);
-//        return responseEntity.getBody();
+    /*public static void postJson(PartnerTransaction request) throws JsonProcessingException {
+        String url = appProperties.aggregatorUrl;
+        String requestBody = new ObjectMapper().writeValueAsString(request);
+        log.info("Request from processor.. {}", requestBody);
+
+        try {
+            OkHttpClient client = getTrustAllCertsClient(); // Use the custom OkHttpClient with disabled certificate validation
+            RequestBody body = RequestBody.create(requestBody, MediaType.parse("application/json"));
+            log.info("Saving body to db.. {}", body);
+            Request httpRequest = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            Response response = client.newCall(httpRequest).execute();
+            log.info("Saving response to db.. {}", response);
+            if (response.isSuccessful()) {
+                Objects.requireNonNull(response.body()).string();
+            } else {
+                log.error("Request failed with error code: " + response.code());
+            }
+        } catch (NoSuchAlgorithmException | KeyManagementException | IOException e) {
+            log.error("Error Sending Request", e);
+        }
+    }*/
+
+//    public static String postJson(PartnerTransaction request) throws JsonProcessingException {
+//        String url = appProperties.aggregatorUrl;
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        String requestBody = objectMapper.writeValueAsString(request);
+//
+//        OkHttpClient trustAllCertsClient;
+//        try {
+//            trustAllCertsClient = getTrustAllCertsClient();
+//        } catch (Exception e) {
+//            // Handle the exception accordingly
+//            return url;
+//        }
+//
+//        System.out.println("requestBody >> " + requestBody);
+//        RestTemplate restTemplate = new RestTemplate(new OkHttp3ClientHttpRequestFactory(trustAllCertsClient));
+//        return restTemplate.postForObject(url, requestBody, String.class);
 //    }
 }
 

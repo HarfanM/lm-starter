@@ -1,0 +1,28 @@
+{
+  "RespUrl": "LMRespUrl",
+  "UserId": "LMUserId",
+  "Password": "LMPassword",
+  "SenderCd": "LMSenderCd",
+  "TranDate": "LMTransactionDate",
+  "ReferenceId": "LMTransactionReferenceNumber",
+  "RemmiterDetails": {
+    "Name": "LMSenderFirstName",
+    "AccNumber": "LMSenderAccountNumber",
+    "Address": "LMSenderAddress",
+    "Country": "LMSenderAddressCountry",
+    "BankCountry": "LMSenderAddressCountry",
+    "BankName": "LMSenderBankName",
+    "SwiftCd": "LMSwiftCode"
+  },
+  "BeneficiaryDetails": {
+    "Name": "LMReceiverFirstName",
+    "AccNumber": "LMReceiverAccountNumber",
+    "IFSC": "LMReceiverBankIdentificationCode",
+    "Address": "LMReceiverAddress"
+  },
+  "Amount": "LMAmount",
+  "RemitterCurrency": "LMReceiveCurrency",
+  "Remarks": "LMSendPurposeOfTransfer",
+  "PurposeCode": "LMPurposeCode",
+  "Alternative_Payment": "LMAlternativePayment"
+}

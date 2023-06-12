@@ -1,9 +1,15 @@
 package com.lmpay.starter.controller;
 
 
+import com.lmpay.starter.dto.TransactionEnquiryDto;
 import com.lmpay.starter.model.GenericRequest;
 import com.lmpay.starter.processor.AggregatorFactory;
+import com.lmpay.starter.processor.HelloPaisaProcessor;
+import com.lmpay.starter.service.TransactionEnquiryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +25,27 @@ import java.util.concurrent.Callable;
 public class PaymentsController {
     private static final int MAX_RETRY_ATTEMPTS = 3;
     private static final long RETRY_DELAY_MS = 1000L;
+    private static final Logger log = LoggerFactory.getLogger(HelloPaisaProcessor.class);
 
     private final AggregatorFactory aggregatorFactory;
+    private final TransactionEnquiryService transactionEnquiryService;
 
-    public PaymentsController(AggregatorFactory aggregatorFactory) {
+
+    public PaymentsController(AggregatorFactory aggregatorFactory,
+                              TransactionEnquiryService transactionEnquiryService) {
         this.aggregatorFactory = aggregatorFactory;
+        this.transactionEnquiryService = transactionEnquiryService;
+    }
+
+    @PostMapping("/transaction-enquiry")
+    public ResponseEntity<String> transactionEnquiry(@RequestBody TransactionEnquiryDto transactionEnquiryDto){
+        try{
+            String transactionEnquiryResponse = transactionEnquiryService.getTransactionEnquiry(transactionEnquiryDto);
+            return new ResponseEntity<>(transactionEnquiryResponse, HttpStatusCode.valueOf(200));
+        }catch (Exception e){
+            log.error("Error occurred while transaction Enquiry: ", e);
+            return new ResponseEntity<>(null, HttpStatusCode.valueOf(200));
+        }
     }
 
     @PostMapping(value = "booktransaction", produces = MediaType.APPLICATION_JSON_VALUE)

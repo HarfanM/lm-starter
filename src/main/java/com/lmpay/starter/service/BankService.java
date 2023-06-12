@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface BankService {
     String confirmTransaction(GenericRequest request) throws JsonLogicException, IOException;
-    String bookTransaction(GenericRequest request) throws IOException;
+    String bookTransaction(GenericRequest request) throws IOException, JsonLogicException;
 //    String balanceEnquiry(GenericRequest request);
 //    String transactionEnquiry(GenericRequest request);
 //    String upiValAddress(GenericRequest request);
