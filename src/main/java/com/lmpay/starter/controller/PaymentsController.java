@@ -6,6 +6,7 @@ import com.lmpay.starter.model.GenericRequest;
 import com.lmpay.starter.processor.AggregatorFactory;
 import com.lmpay.starter.processor.HelloPaisaProcessor;
 import com.lmpay.starter.service.TransactionEnquiryService;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class PaymentsController {
     }
 
     @PostMapping("/transaction-enquiry")
-    public ResponseEntity<String> transactionEnquiry(@RequestBody TransactionEnquiryDto transactionEnquiryDto){
+    public ResponseEntity<String> transactionEnquiry(@Valid @RequestBody TransactionEnquiryDto transactionEnquiryDto){
         try{
             String transactionEnquiryResponse = transactionEnquiryService.getTransactionEnquiry(transactionEnquiryDto);
             return new ResponseEntity<>(transactionEnquiryResponse, HttpStatusCode.valueOf(200));
@@ -49,12 +50,12 @@ public class PaymentsController {
     }
 
     @PostMapping(value = "booktransaction", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> bookTransaction(@RequestBody GenericRequest request) {
+    public ResponseEntity<Object> bookTransaction(@Valid @RequestBody GenericRequest request) {
         return handleBankRequest(() -> aggregatorFactory.bookTransaction(request));
     }
 
     @PostMapping(value = "confirmtransaction", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> confirmTransaction(@RequestBody GenericRequest request) {
+    public ResponseEntity<Object> confirmTransaction(@Valid @RequestBody GenericRequest request) {
         return handleBankRequest(() -> aggregatorFactory.confirmTransaction(request));
     }
 
